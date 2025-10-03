@@ -21,21 +21,37 @@ def printBoard():
 
 
 def checkWinner():
-    
+    global x,o
     for i in range(0,7,3):
         if board[i] != " " and board[i]==board[i+1]==board[i+2]:
-            print(board[i],"Player Won")
+            print("Player",board[i],"Won")
+            if board[i]=="x":
+                x+=1
+            else:
+                o+=1
             return True
     for i in range(3):
         if board[i] != " " and board[i]==board[i+3]==board[i+6]:
-            print(board[i],"Player Won")
+            print("Player",board[0],"Won")
+            if board[i]=="x":
+                x+=1
+            else:
+                o+=1
             return True
     if board[0]!= " " and board[0]==board[4]==board[8]:
-        print(board[0],"Player Won")
+        print("Player",board[0],"Won")
+        if board[i]=="x":
+            x+=1
+        else:
+            o+=1
         return True
         
     elif board[2] != " " and board[2]==board[4]==board[6]:
-        print(board[2],"Player Won")
+        print("Player",board[2],"Won")
+        if board[i]=="x":
+            x+=1
+        else:
+            o+=1
         return True
     if board.count(" ") == 0:
         print("Draw")
@@ -68,12 +84,17 @@ def makeMove(xox):
             print("Enter a valid number between 0 to 8")
             
         
-            
+def printScore():
+    print("Scoreboard")
+    print("Player 1 (X) | Player 2 (O)")
+    print("-------------|-------------")
+    print("      ",x,"    |      ",o,"")          
         
         
         
         
-
+x = 0
+o = 0
  
 board = [" "]*9
 printBoard()
@@ -84,12 +105,12 @@ while  running:
         
     if checkWinner():
         break
-    print("The box consist of index 0 to 8.type the box number where you want to put corresponding 'x' or 'o' ")
     print("Player one's turn: put 'x'")
     makeMove('x')
     printBoard()
     
     if checkWinner():
+        printScore()
         doAgain()
         continue
     
@@ -97,6 +118,7 @@ while  running:
     makeMove('o')
     printBoard()
     if checkWinner():
+        printScore()
         doAgain()
         continue
     
