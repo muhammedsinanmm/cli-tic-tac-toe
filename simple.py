@@ -1,4 +1,5 @@
 from colorama import Fore, Style, init
+import random
 init(autoreset=True)
 
 
@@ -85,20 +86,41 @@ def makeMove(xox):
             
         
 def printScore():
-    print("Scoreboard")
-    print("Player 1 (X) | Player 2 (O)")
+    if mode == 2:
+        print("Scoreboard")
+        print("Player 1 (X) | Player 2 (O)")
+        print("-------------|-------------")
+        print("      ",x,"    |      ",o,"")          
+    else:
+        print("Scoreboard")
+    print("Player 1 (X) | Computer (O)")
     print("-------------|-------------")
-    print("      ",x,"    |      ",o,"")          
+    print("      ",x,"    |      ",c,"") 
         
-        
-        
+def computerMove():
+    emptyCell = [i for i,v in enumerate (board) if v == " " ]
+    move = random.choice(emptyCell)
+    board[move] = "o"       
         
 x = 0
 o = 0
- 
+c = 0
 board = [" "]*9
 printBoard()
 running = True
+
+while True:
+    try:
+        mode = int(input("Enter which mode you wanna play mode:1 computer, mode:2 2 player (1/2): "))
+        if mode !=1 and mode !=2:
+            print("Enter 1 or 2")
+            continue
+        else:
+            break
+    except ValueError:
+            print("Please Enter 1 or 2")
+    
+    
 while  running:
     
     
@@ -114,11 +136,20 @@ while  running:
         doAgain()
         continue
     
-    print("Player two's turn: put 'o' ")
-    makeMove('o')
-    printBoard()
-    if checkWinner():
-        printScore()
-        doAgain()
-        continue
-    
+    if mode == 2:
+        print("Player two's turn: put 'o' ")
+        makeMove('o')
+        printBoard()
+        if checkWinner():
+            printScore()
+            doAgain()
+            continue
+    else:
+        print("\n")
+        computerMove()
+        printBoard()
+        if checkWinner():
+            c+=1
+            printScore()
+            doAgain()
+            continue
