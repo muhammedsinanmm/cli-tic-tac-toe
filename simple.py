@@ -26,33 +26,21 @@ def checkWinner():
     for i in range(0,7,3):
         if board[i] != " " and board[i]==board[i+1]==board[i+2]:
             print("Player",board[i],"Won")
-            if board[i]=="x":
-                x+=1
-            else:
-                o+=1
+            
             return True
     for i in range(3):
         if board[i] != " " and board[i]==board[i+3]==board[i+6]:
             print("Player",board[0],"Won")
-            if board[i]=="x":
-                x+=1
-            else:
-                o+=1
+            
             return True
     if board[0]!= " " and board[0]==board[4]==board[8]:
         print("Player",board[0],"Won")
-        if board[i]=="x":
-            x+=1
-        else:
-            o+=1
+        
         return True
         
     elif board[2] != " " and board[2]==board[4]==board[6]:
         print("Player",board[2],"Won")
-        if board[i]=="x":
-            x+=1
-        else:
-            o+=1
+        
         return True
     if board.count(" ") == 0:
         print("Draw")
@@ -93,9 +81,9 @@ def printScore():
         print("      ",x,"    |      ",o,"")          
     else:
         print("Scoreboard")
-    print("Player 1 (X) | Computer (O)")
-    print("-------------|-------------")
-    print("      ",x,"    |      ",c,"") 
+        print("Player 1 (X) | Computer (O)")
+        print("-------------|-------------")
+        print("      ",x,"    |      ",c,"") 
         
 def computerMove():
     emptyCell = [i for i,v in enumerate (board) if v == " " ]
@@ -132,6 +120,7 @@ while  running:
     printBoard()
     
     if checkWinner():
+        x+=1
         printScore()
         doAgain()
         continue
@@ -141,6 +130,7 @@ while  running:
         makeMove('o')
         printBoard()
         if checkWinner():
+            o+=1
             printScore()
             doAgain()
             continue
