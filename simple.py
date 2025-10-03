@@ -1,10 +1,23 @@
+from colorama import Fore, Style, init
+init(autoreset=True)
+
+
+def getSymbol(sym):
+    if sym == "x":
+        return Fore.RED + "X" + Style.RESET_ALL
+    elif sym == "o":
+        return Fore.BLUE + "O" + Style.RESET_ALL
+    return " "
+
+
+
 def printBoard():
     
-    print("",board[0],"|",board[1],"|",board[2])
+    print("", getSymbol(board[0]), "|", getSymbol(board[1]), "|", getSymbol(board[2]))
     print("---|---|---")
-    print("",board[3],"|",board[4],"|",board[5])
+    print("", getSymbol(board[3]), "|", getSymbol(board[4]), "|", getSymbol(board[5]))
     print("---|---|---")
-    print("",board[6],"|",board[7],"|",board[8])
+    print("", getSymbol(board[6]), "|", getSymbol(board[7]), "|", getSymbol(board[8]))
 
 
 def checkWinner():
