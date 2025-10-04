@@ -22,7 +22,7 @@ def printBoard():
 
 
 def checkWinner():
-    global x,o
+    
     for i in range(0,7,3):
         if board[i] != " " and board[i]==board[i+1]==board[i+2]:
             print("Player",board[i],"Won")
@@ -110,9 +110,6 @@ while True:
     
     
 while  running:
-    
-    
-        
     if checkWinner():
         break
     print("Player one's turn: put 'x'")
