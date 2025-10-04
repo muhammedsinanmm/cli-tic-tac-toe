@@ -90,6 +90,9 @@ def computerMove():
     move = random.choice(emptyCell)
     board[move] = "o"       
         
+def minMax():
+    print("The unbeatable ai is coming now you can play with the noob ai but remember the unbeatable is loading and we will meet again soooooooon")
+    computerMove()
 x = 0
 o = 0
 c = 0
@@ -133,7 +136,7 @@ while  running:
             continue
     else:
         print("\n")
-        computerMove()
+        minMax()
         printBoard()
         if checkWinner():
             c+=1
