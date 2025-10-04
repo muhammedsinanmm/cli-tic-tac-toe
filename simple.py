@@ -88,11 +88,46 @@ def printScore():
 def computerMove():
     emptyCell = [i for i,v in enumerate (board) if v == " " ]
     move = random.choice(emptyCell)
-    board[move] = "o"       
+    board[move] = "o"  
+    
+def whoWin("x"):
+    for i in range(0,7,3):
+        if board[i] == "x" and board[i]==board[i+1]==board[i+2]:
+            return True
+    for i in range(3):
+        if board[i] == "x" and board[i]==board[i+3]==board[i+6]:
+            return True
+    if board[0]== "x" and board[0]==board[4]==board[8]:
+        return True
+    elif board[2] == "x" and board[2]==board[4]==board[6]:
+        return True
+    
         
-def minMax():
-    print("The unbeatable ai is coming now you can play with the noob ai but remember the unbeatable is loading and we will meet again soooooooon")
-    computerMove()
+def minMax(board,isMaximizing):
+    if whoWin("x"):
+        board[i] = "x"
+        return -1
+    elif whoWin("o"):
+        board[i] = "o"
+        return 1
+    elif all (empty for empty in board if empty != " " ):
+        board[i] = "o"
+        return 0
+    else:
+        if isMaximizing:
+            for i,v in enumerate(board()):
+                if v == " ":
+                    newBoard = board
+                    newBoard[i] = "o"
+                    minMax(newBoard,isMaximizing=False)
+                    maxx, i?
+        if not isMaximizing:
+            min (something)
+                            
+                
+        
+        
+    
 x = 0
 o = 0
 c = 0
@@ -136,7 +171,7 @@ while  running:
             continue
     else:
         print("\n")
-        minMax()
+        minMax(board,isMaximizing=True)
         printBoard()
         if checkWinner():
             c+=1
