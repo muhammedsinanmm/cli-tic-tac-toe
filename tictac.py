@@ -1,5 +1,6 @@
 from colorama import Fore, Style, init
 import random
+from math import inf
 init(autoreset=True)
 
 
@@ -22,7 +23,7 @@ def printBoard():
 
 
 def checkWinner():
-    
+    global x
     for i in range(0,7,3):
         if board[i] != " " and board[i]==board[i+1]==board[i+2]:
             print("Player",board[i],"Won")
@@ -44,15 +45,18 @@ def checkWinner():
         return True
     if board.count(" ") == 0:
         print("Draw")
+        x-=1
         return True
     return False
     
 def doAgain():
-    global running,board
+    global running,board,mode
     choice = input("Do you wanna continue (y/n): ")
     if choice.lower() == 'y':
         running = True
         board = [" "]*9
+        mode = int(input("Enter which mode you wanna play mode:1 computer, mode:2 2 player (1/2): "))
+
         printBoard()
     else:
         running = False    
@@ -90,40 +94,55 @@ def computerMove():
     move = random.choice(emptyCell)
     board[move] = "o"  
     
-def whoWin("x"):
+def whoWin(xo):
     for i in range(0,7,3):
-        if board[i] == "x" and board[i]==board[i+1]==board[i+2]:
+        if board[i] == xo and board[i]==board[i+1]==board[i+2]:
             return True
     for i in range(3):
-        if board[i] == "x" and board[i]==board[i+3]==board[i+6]:
+        if board[i] == xo and board[i]==board[i+3]==board[i+6]:
             return True
-    if board[0]== "x" and board[0]==board[4]==board[8]:
+    if board[0]== xo and board[0]==board[4]==board[8]:
         return True
-    elif board[2] == "x" and board[2]==board[4]==board[6]:
+    elif board[2] == xo and board[2]==board[4]==board[6]:
         return True
     
         
-def minMax(board,isMaximizing):
+def minMax(board,isMaximizing,depth=0):
+    
     if whoWin("x"):
-        board[i] = "x"
+        
         return -1
     elif whoWin("o"):
-        board[i] = "o"
+        
         return 1
-    elif all (empty for empty in board if empty != " " ):
-        board[i] = "o"
+    elif " " not in board:        
         return 0
     else:
         if isMaximizing:
-            for i,v in enumerate(board()):
+            bestScore = -inf
+            move = None
+            for i,v in enumerate(board):
                 if v == " ":
-                    newBoard = board
-                    newBoard[i] = "o"
-                    minMax(newBoard,isMaximizing=False)
-                    maxx, i?
-        if not isMaximizing:
-            min (something)
-                            
+                    board[i] = "o"
+                    currentScore = minMax(board,False, depth + 1)
+                    board[i] = " "
+                    if currentScore > bestScore:
+                        bestScore = currentScore
+                        move = i
+            if depth ==0 and move is not None:
+                board[move] = "o"
+            return bestScore
+        else:
+            bestScore = inf
+            for i,v in enumerate(board):
+                if v == " ":
+                    board[i] = "x"
+                    currentScore = minMax(board,True,depth + 1)
+                    board[i] = " "
+                    if currentScore < bestScore:
+                        bestScore = currentScore
+            return bestScore
+
                 
         
         
@@ -171,7 +190,9 @@ while  running:
             continue
     else:
         print("\n")
+        print("Computer Move\n\n")
         minMax(board,isMaximizing=True)
+        
         printBoard()
         if checkWinner():
             c+=1
